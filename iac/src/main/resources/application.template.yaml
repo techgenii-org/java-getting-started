@@ -28,7 +28,3 @@ logging:
 
 server:
   port: 7000
-
-
-iac:
-  jwtsecret: MzdkMTA3NTEtMjAzMy00OTQzLWJlNDMtNzhjOGIyNTYxNTgx
