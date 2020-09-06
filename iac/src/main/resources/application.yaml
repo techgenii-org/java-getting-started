@@ -32,3 +32,5 @@ server:
 
 iac:
   jwtsecret: MzdkMTA3NTEtMjAzMy00OTQzLWJlNDMtNzhjOGIyNTYxNTgx
+  staticpages:
+    baseurl: static.techgenii.in
