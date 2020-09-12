@@ -3,6 +3,7 @@ package com.techgenii.iac.controller;
 
 import com.techgenii.iac.rqrs.LoginRQ;
 import com.techgenii.iac.rqrs.LoginRS;
+import com.techgenii.iac.rqrs.RegisterUserRQ;
 import com.techgenii.iac.rqrs.ResetPasswordRQ;
 import com.techgenii.iac.service.IdentityAndAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class IdentityAndAccessController {
     @PostMapping(value ="/reset/password", produces = "application/json")
     public ResponseEntity<LoginRS> resetPassword(@RequestBody ResetPasswordRQ resetPasswordRQ) {
         return ResponseEntity.ok(identityAndAccessService.resetPassword(resetPasswordRQ));
+    }
+
+    @PostMapping(value ="/register/user", produces = "application/json")
+    public ResponseEntity<LoginRS> registerUser(@RequestBody RegisterUserRQ registerUserRQ) {
+        return ResponseEntity.ok(identityAndAccessService.registerUser(registerUserRQ));
     }
 
 }

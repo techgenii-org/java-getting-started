@@ -12,8 +12,10 @@ import com.techgenii.iac.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -93,5 +95,29 @@ public class IdentityAndAccessService {
                         return this.toLoginRS(userEntity);
                     }).orElse(null);
         }).orElseThrow(RuntimeException::new);
+    }
+
+    public LoginRS registerUser(RegisterUserRQ registerUserRQ) {
+        try{
+            return this.toLoginRS(
+                    iacRepository.save(UserEntity
+                            .builder()
+                            .email(registerUserRQ.getEmail())
+                            .password(registerUserRQ.getPassword())
+                            .username(registerUserRQ.getUsername()).build())
+            );
+
+        }catch(DataIntegrityViolationException e){
+            Throwable cause = e.getCause().getCause();
+            if (cause instanceof SQLIntegrityConstraintViolationException){
+                SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException = (SQLIntegrityConstraintViolationException) cause;
+                if (sqlIntegrityConstraintViolationException.getSQLState().equals("23000")) {
+                    throw new RuntimeException("Duplicate Username or email");
+                }
+            }
+
+            throw e;
+
+        }
     }
 }
