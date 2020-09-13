@@ -8,7 +8,9 @@
   <packaging>pom</packaging>
   <version>1.0</version>
   <modules>
-    <module>iac</module>
+    <module>services</module>
+    <module>starters</module>
+    <module>auditor</module>
   </modules>
 
   <parent>
@@ -17,7 +19,7 @@
     <version>2.1.6.RELEASE</version>
     <relativePath/>
   </parent>
-  <name>techgenii-spring-boot-template</name>
+  <name>techgenii-template-project</name>
 
 
   <dependencyManagement>
