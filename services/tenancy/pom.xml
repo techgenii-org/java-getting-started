@@ -11,5 +11,14 @@
 
     <artifactId>tenancy</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.techgenii</groupId>
+            <artifactId>postman</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>

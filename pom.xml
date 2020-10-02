@@ -9,7 +9,7 @@
   <version>1.0</version>
   <modules>
     <module>services</module>
-    <module>starters</module>
+    <module>autoconfigurations</module>
     <module>auditor</module>
   </modules>
 
