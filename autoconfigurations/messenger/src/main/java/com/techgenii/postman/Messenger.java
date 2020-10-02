@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
 @Slf4j
-public class EmailService {
+public class Messenger {
 
 
     public static final String MAIL_TEMPLATES_PREFIX = "classpath:/mail-templates/";

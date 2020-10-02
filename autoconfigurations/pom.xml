@@ -12,7 +12,7 @@
     <artifactId>autoconfigurations</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>postman</module>
+        <module>messenger</module>
     </modules>
 
 

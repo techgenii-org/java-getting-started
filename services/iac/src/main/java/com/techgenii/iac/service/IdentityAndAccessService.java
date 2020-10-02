@@ -9,7 +9,7 @@ import com.techgenii.iac.repositories.ForgotResetPasswordRepository;
 import com.techgenii.iac.repositories.IACRepository;
 import com.techgenii.iac.rqrs.*;
 import com.techgenii.iac.utils.JwtUtil;
-import com.techgenii.postman.EmailService;
+import com.techgenii.postman.Messenger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +41,7 @@ public class IdentityAndAccessService {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private EmailService emailService;
+    private Messenger messenger;
 
 
 
@@ -82,7 +82,7 @@ public class IdentityAndAccessService {
 
             HashMap<String, Object> templateVariables = new HashMap<>();
             templateVariables.put("resetPasswordLink",resetPasswordLink);
-            emailService.sendEmail(email,"Reset Password","template-thymeleaf", templateVariables);
+            messenger.sendEmail(email,"Reset Password","template-thymeleaf", templateVariables);
             log.info(resetPasswordLink);
         }
 

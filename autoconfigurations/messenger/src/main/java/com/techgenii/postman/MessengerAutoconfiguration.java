@@ -9,15 +9,15 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 @Slf4j
-public class PostmanAutoconfiguration {
+public class MessengerAutoconfiguration {
 
     @Bean
     public SpringResourceTemplateResolver getResourceTemplateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix(EmailService.MAIL_TEMPLATES_PREFIX);
-        templateResolver.setSuffix(EmailService.MAIL_TEMPLATES_SUFFIX);
-        templateResolver.setTemplateMode(EmailService.TEMPLATE_MODE);
-        templateResolver.setCharacterEncoding(EmailService.CHARACTER_ENCODING);
+        templateResolver.setPrefix(Messenger.MAIL_TEMPLATES_PREFIX);
+        templateResolver.setSuffix(Messenger.MAIL_TEMPLATES_SUFFIX);
+        templateResolver.setTemplateMode(Messenger.TEMPLATE_MODE);
+        templateResolver.setCharacterEncoding(Messenger.CHARACTER_ENCODING);
         return templateResolver;
     }
 
@@ -29,7 +29,7 @@ public class PostmanAutoconfiguration {
     }
 
     @Bean
-    public EmailService emailService() {
-        return new EmailService();
+    public Messenger messenger() {
+        return new Messenger();
     }
 }
