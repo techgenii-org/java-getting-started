@@ -9,6 +9,7 @@ import com.techgenii.iac.repositories.ForgotResetPasswordRepository;
 import com.techgenii.iac.repositories.IACRepository;
 import com.techgenii.iac.rqrs.*;
 import com.techgenii.iac.utils.JwtUtil;
+import com.techgenii.postman.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,6 +39,9 @@ public class IdentityAndAccessService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private EmailService emailService;
 
 
 
@@ -73,7 +78,12 @@ public class IdentityAndAccessService {
                 forgotResetPasswordEntity = forgotResetPasswordRepository.save(ForgotResetPasswordEntity.builder().uuid(UUID.randomUUID().toString()).email(email).build());
             }
 
-            log.info(generateResetPasswordStaticPageLink(forgotResetPasswordEntity.getUuid()));
+            String resetPasswordLink = generateResetPasswordStaticPageLink(forgotResetPasswordEntity.getUuid());
+
+            HashMap<String, Object> templateVariables = new HashMap<>();
+            templateVariables.put("resetPasswordLink",resetPasswordLink);
+            emailService.sendEmail(email,"Reset Password","template-thymeleaf", templateVariables);
+            log.info(resetPasswordLink);
         }
 
         return null;

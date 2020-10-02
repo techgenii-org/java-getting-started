@@ -1,4 +1,4 @@
-package com.techgenii.iac.service;
+package com.techgenii.postman;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
@@ -14,7 +14,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
-@Service
 @Slf4j
 public class EmailService {
 
@@ -32,6 +31,7 @@ public class EmailService {
 
     public void sendEmail(String to, String subject, String templateName, HashMap<String, Object> templateVariables) {
         Context thymeleafContext = new Context();
+        thymeleafContext.setVariables(templateVariables);
         String processedHtml = templateEngine.process(templateName, thymeleafContext);
 
         AmazonSimpleEmailService sesService = AmazonSimpleEmailServiceClientBuilder.standard()

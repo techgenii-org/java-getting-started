@@ -6,7 +6,7 @@
         <artifactId>services</artifactId>
         <groupId>com.techgenii</groupId>
         <version>1.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,13 @@
     <name>iac</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.techgenii</groupId>
+            <artifactId>postman</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
