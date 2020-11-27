@@ -11,6 +11,7 @@
     <module>services</module>
     <module>autoconfigurations</module>
     <module>auditor</module>
+      <module>netty-tg</module>
   </modules>
 
   <parent>
@@ -47,6 +48,21 @@
         <artifactId>aws-java-sdk-ses</artifactId>
         <version>1.11.858</version>
       </dependency>
+
+      <!-- Overriding httpClient dependency as twilio requires this version of the client -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.12</version>
+      </dependency>
+
+      <!-- Overriding httpClient dependency as twilio requires this version of the client -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.4.13</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 

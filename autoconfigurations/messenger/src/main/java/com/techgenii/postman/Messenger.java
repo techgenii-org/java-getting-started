@@ -4,15 +4,17 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 import com.amazonaws.services.simpleemail.model.*;
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Slf4j
 public class Messenger {
@@ -72,10 +74,23 @@ public class Messenger {
         log.info("!!Mail Sent!!");
     }
 
+    public String sentOtp(String otpMessage, String mobileNo) {
+        final com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber(mobileNo), new PhoneNumber("+12058914357"), otpMessage).create();
+        final String sid = message.getSid();
+        log.info(sid);
+        return sid;
+    }
+
     @PostConstruct
     private void init() {
         sesService = AmazonSimpleEmailServiceClientBuilder.standard()
                 .withRegion(Regions.US_EAST_1)
                 .build();
+
+        final Map<String, String> getenv = System.getenv();
+        final Properties properties = System.getProperties();
+        String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+        String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+        Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
     }
 }

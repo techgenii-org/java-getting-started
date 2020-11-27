@@ -6,13 +6,19 @@ import com.techgenii.iac.rqrs.LoginRS;
 import com.techgenii.iac.rqrs.RegisterUserRQ;
 import com.techgenii.iac.rqrs.ResetPasswordRQ;
 import com.techgenii.iac.service.IdentityAndAccessService;
+import com.techgenii.postman.Messenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 @RestController
 @RequestMapping("/api/iac")
 public class IdentityAndAccessController {
+
+    @Autowired
+    private Messenger messenger;
 
     @Autowired
     private IdentityAndAccessService identityAndAccessService;
@@ -21,6 +27,18 @@ public class IdentityAndAccessController {
     public ResponseEntity<LoginRS> login(@RequestBody LoginRQ loginRQ) {
 
         return ResponseEntity.ok(identityAndAccessService.login(loginRQ)) ;
+    }
+
+    @GetMapping("/login/otp")
+    public ResponseEntity login( String mobileNo) {
+
+        Random random = new Random();
+        String otp = "";
+        for (int i = 0; i < 6; i++) {
+            otp += random.nextInt(10);
+        }
+        messenger.sentOtp("Your OTP is "+otp,mobileNo);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value ="/me", produces = "application/json")
