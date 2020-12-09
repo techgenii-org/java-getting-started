@@ -16,7 +16,6 @@
     <modules>
         <module>iac</module>
         <module>tenancy</module>
-        <module>cache-manager</module>
         <module>caching</module>
     </modules>
 
