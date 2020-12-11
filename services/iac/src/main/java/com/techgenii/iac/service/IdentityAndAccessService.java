@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techgenii.iac.entities.ForgotResetPasswordEntity;
 import com.techgenii.iac.entities.UserEntity;
+import com.techgenii.iac.entities.UserEntity_;
 import com.techgenii.iac.repositories.ForgotResetPasswordRepository;
 import com.techgenii.iac.repositories.IACRepository;
 import com.techgenii.iac.rqrs.*;

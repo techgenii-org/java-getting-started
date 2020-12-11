@@ -12,6 +12,7 @@
     <module>autoconfigurations</module>
     <module>auditor</module>
       <module>netty-tg</module>
+    <module>leader-election</module>
   </modules>
 
   <parent>

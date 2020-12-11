@@ -3,21 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>techgenii-spring-boot-template</artifactId>
+        <artifactId>services</artifactId>
         <groupId>com.techgenii</groupId>
         <version>1.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>services</artifactId>
+    <artifactId>service-commons</artifactId>
 
-    <modules>
-        <module>iac</module>
-        <module>tenancy</module>
-        <module>caching</module>
-        <module>service-commons</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
