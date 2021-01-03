@@ -4,11 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-@Slf4j
+//@Slf4j
 public class LeaderElection implements Watcher {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LeaderElection.class);
 
     private static final String ZOOKEEPER_ADDRESS = "localhost:2181";
     private static final int SESSION_TIMEOUT = 3000;
@@ -19,7 +23,7 @@ public class LeaderElection implements Watcher {
         leaderElection.connectToZookeeper();
         leaderElection.waitForZookeeper();
         leaderElection.close();
-        log.info("Disconnected from Zookeeper, exiting application");
+        LOGGER.info("Disconnected from Zookeeper, exiting application");
     }
 
     public void waitForZookeeper() throws InterruptedException {
@@ -43,10 +47,10 @@ public class LeaderElection implements Watcher {
 
             case None:
                 if (watchedEvent.getState() == Event.KeeperState.SyncConnected) {
-                    log.info("Successfully connected to Zookeeper");
+                    LOGGER.info("Successfully connected to Zookeeper");
                 } else {
                     synchronized (zooKeeper) {
-                        log.info("Disconnected from zookeeper event");
+                        LOGGER.info("Disconnected from zookeeper event");
                         zooKeeper.notifyAll();
                     }
                 }

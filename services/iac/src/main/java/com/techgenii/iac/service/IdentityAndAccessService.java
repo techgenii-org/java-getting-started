@@ -3,6 +3,8 @@ package com.techgenii.iac.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techgenii.auditor.ActorType;
+import com.techgenii.auditor.Audit;
 import com.techgenii.iac.entities.ForgotResetPasswordEntity;
 import com.techgenii.iac.entities.UserEntity;
 import com.techgenii.iac.entities.UserEntity_;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class IdentityAndAccessService {
 
 
 
+    @Transactional
+    @Audit(actorType = ActorType.HTTP_CLIENT)
     public LoginRS login(LoginRQ loginRQ) {
         return iacRepository
                 .findByUsernameAndPassword(loginRQ.getUsername(), loginRQ.getPassword())
@@ -67,10 +72,12 @@ public class IdentityAndAccessService {
         }
     }
 
+    @Transactional
     public Object getMe(String token) {
         return objectMapper.convertValue(jwtUtil.parseToken(token), Map.class).get("sub");
     }
 
+    @Transactional
     public Object forgotPassword(String email) {
 
         if (iacRepository.existsByEmail(email)) {
@@ -94,6 +101,7 @@ public class IdentityAndAccessService {
         return "https://" + staticPagesBaseUrl + "/reset/password?token=" + uuid;
     }
 
+    @Transactional
     public LoginRS resetPassword(ResetPasswordRQ resetPasswordRQ) {
 
         return forgotResetPasswordRepository.findById(resetPasswordRQ.getForgotPasswordToken()).map(forgotResetPasswordEntity -> {
@@ -108,6 +116,7 @@ public class IdentityAndAccessService {
         }).orElseThrow(RuntimeException::new);
     }
 
+    @Transactional
     public LoginRS registerUser(RegisterUserRQ registerUserRQ) {
         try{
             return this.toLoginRS(

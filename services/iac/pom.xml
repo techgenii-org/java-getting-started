@@ -30,6 +30,14 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.techgenii</groupId>
+            <artifactId>auditor</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
